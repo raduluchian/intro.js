@@ -406,6 +406,14 @@ Want to learn faster and easier? Here we have **Instant IntroJs**, Packt Publish
 
 ## Release History
 
+ * **V1.0.1** - 2015-06-22
+   - Restructure project according to SMACSS methodology
+   - Convert styles into Sass with Compass support
+   - Override styles inherited from Bootstrap
+   - Loose focus when switching helpers
+   - Add support for tooltip position
+   - Add support for helper number position
+
  * **v1.0.0** - 2014-10-17
    - Auto-positioning feature for tooltip box
    - Add progress-bar to tooltip box

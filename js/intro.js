@@ -40,6 +40,8 @@
       doneLabel: 'Done',
       /* Default tooltip box position */
       tooltipPosition: 'bottom',
+      /* Default tooltip number position */
+      numberPosition: 'top-left',
       /* Next CSS class for tooltip boxes */
       tooltipClass: '',
       /* CSS class that is added to the helperLayer */
@@ -135,7 +137,8 @@
             step: parseInt(currentElement.getAttribute('data-step'), 10),
             tooltipClass: currentElement.getAttribute('data-tooltipClass'),
             highlightClass: currentElement.getAttribute('data-highlightClass'),
-            position: currentElement.getAttribute('data-position') || this._options.tooltipPosition
+            position: currentElement.getAttribute('data-position') || this._options.tooltipPosition,
+            numberPosition: currentElement.getAttribute('data-intro-number-position') || this._options.numberPosition
           };
         }
       }
@@ -162,7 +165,8 @@
             step: nextStep + 1,
             tooltipClass: currentElement.getAttribute('data-tooltipClass'),
             highlightClass: currentElement.getAttribute('data-highlightClass'),
-            position: currentElement.getAttribute('data-position') || this._options.tooltipPosition
+            position: currentElement.getAttribute('data-position') || this._options.tooltipPosition,
+            numberPosition: currentElement.getAttribute('data-intro-number-position') || this._options.numberPosition
           };
         }
       }
@@ -367,7 +371,7 @@
     var referenceLayer = targetElement.querySelector('.introjs-tooltipReferenceLayer');
     if (referenceLayer) {
       referenceLayer.parentNode.removeChild(referenceLayer);
-	}
+  }
     //remove disableInteractionLayer
     var disableInteractionLayer = targetElement.querySelector('.introjs-disableInteraction');
     if (disableInteractionLayer) {
@@ -461,11 +465,45 @@
     var tooltipHeight = _getOffset(tooltipLayer).height
     var windowSize = _getWinSize()
     switch (currentTooltipPosition) {
+      case 'bottom':
+        targetElementOffset = _getOffset(targetElement);
+        tooltipOffset       = _getOffset(tooltipLayer);
+
+        arrowLayer.className      = 'introjs-arrow top';
+        tooltipLayer.style.left   = (targetElementOffset.width / 2 - tooltipOffset.width / 2) + 'px';
+        tooltipLayer.style.bottom = '-' + (tooltipOffset.height + 10) + 'px';
+        break;
+
+      case 'bottom-right':
+        arrowLayer.className      = 'introjs-arrow top-right';
+        tooltipLayer.style.right  = '0px';
+        tooltipLayer.style.bottom = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
+        break;
+
+      case 'bottom-left':
+        arrowLayer.className      = 'introjs-arrow top-left';
+        tooltipLayer.style.left  = '0px';
+        tooltipLayer.style.bottom = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
+        break;
+
       case 'top':
-        tooltipLayer.style.left = '15px';
+        tooltipLayer.style.left = '0';
         tooltipLayer.style.top = '-' + (tooltipHeight + 10) + 'px';
         arrowLayer.className = 'introjs-arrow bottom';
         break;
+
+      case 'top-right':
+        tooltipLayer.style.right = '0';
+        tooltipLayer.style.top = '-' + (tooltipHeight + 10) + 'px';
+        arrowLayer.className = 'introjs-arrow bottom-right';
+        break;
+
+      case 'top-left':
+        tooltipLayer.style.left = '0';
+        tooltipLayer.style.top = '-' + (tooltipHeight + 10) + 'px';
+        arrowLayer.className = 'introjs-arrow bottom-left';
+        break;
+
       case 'right':
         tooltipLayer.style.left = (_getOffset(targetElement).width + 20) + 'px';
         if (targetOffset.top + tooltipHeight > windowSize.height) {
@@ -476,6 +514,7 @@
         }
         arrowLayer.className = 'introjs-arrow left';
         break;
+
       case 'left':
         if (this._options.showStepNumbers == true) {
           tooltipLayer.style.top = '15px';
@@ -490,9 +529,8 @@
           arrowLayer.className = 'introjs-arrow right';
         }
         tooltipLayer.style.right = (targetOffset.width + 20) + 'px';
-
-
         break;
+
       case 'floating':
         arrowLayer.style.display = 'none';
 
@@ -508,30 +546,41 @@
           helperNumberLayer.style.left = '-' + ((tooltipOffset.width / 2) + 18) + 'px';
           helperNumberLayer.style.top  = '-' + ((tooltipOffset.height / 2) + 18) + 'px';
         }
+        break;
 
-        break;
-      case 'bottom-right-aligned':
-        arrowLayer.className      = 'introjs-arrow top-right';
-        tooltipLayer.style.right  = '0px';
-        tooltipLayer.style.bottom = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
-        break;
-      case 'bottom-middle-aligned':
-        targetElementOffset = _getOffset(targetElement);
-        tooltipOffset       = _getOffset(tooltipLayer);
-
-        arrowLayer.className      = 'introjs-arrow top-middle';
-        tooltipLayer.style.left   = (targetElementOffset.width / 2 - tooltipOffset.width / 2) + 'px';
-        tooltipLayer.style.bottom = '-' + (tooltipOffset.height + 10) + 'px';
-        break;
-      case 'bottom-left-aligned':
-      // Bottom-left-aligned is the same as the default bottom
-      case 'bottom':
-      // Bottom going to follow the default behavior
       default:
         tooltipLayer.style.bottom = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
         tooltipLayer.style.left = (_getOffset(targetElement).width / 2 - _getOffset(tooltipLayer).width / 2) + 'px';
-
         arrowLayer.className = 'introjs-arrow top';
+        break;
+    }
+
+    currentNumberPosition = this._introItems[this._currentStep].numberPosition;
+    switch (currentNumberPosition) {
+      case 'left':
+        helperNumberLayer.className      = 'introjs-helperNumberLayer left';
+        break;
+      case 'right':
+        helperNumberLayer.className      = 'introjs-helperNumberLayer right';
+        break;
+      case 'bottom':
+        helperNumberLayer.className      = 'introjs-helperNumberLayer bottom';
+        break;
+      case 'bottom-left':
+        helperNumberLayer.className      = 'introjs-helperNumberLayer bottom-left';
+        break;
+      case 'bottom-right':
+        helperNumberLayer.className      = 'introjs-helperNumberLayer bottom-right';
+        break;
+      case 'top':
+        helperNumberLayer.className      = 'introjs-helperNumberLayer top';
+        break;
+      case 'top-right':
+        helperNumberLayer.className      = 'introjs-helperNumberLayer top-right';
+        break;
+      case 'top-left':
+      default:
+        helperNumberLayer.className      = 'introjs-helperNumberLayer top-left';
         break;
     }
   }

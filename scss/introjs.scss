@@ -1,0 +1,369 @@
+@import 'compass/css3',
+'base/variables';
+
+.has-overlay {
+  overflow: hidden;
+}
+
+.introjs-overlay {
+  @include transition(all .3s ease-out);
+  position: absolute;
+  z-index: 999999;
+  background-color: #000;
+  opacity: 0;
+  background: rgba(200,200,200,.9);
+}
+
+.introjs-fixParent {
+  @include transform(none !important);
+  z-index: auto !important;
+  opacity: 1.0 !important;
+  position: absolute !important;
+}
+
+.introjs-showElement,
+tr.introjs-showElement > td,
+tr.introjs-showElement > th {
+  z-index: 9999999 !important;
+}
+
+.introjs-disableInteraction {
+  z-index: 99999999 !important;
+  position: absolute;
+}
+
+.introjs-relativePosition,
+tr.introjs-showElement > td,
+tr.introjs-showElement > th {
+  position: relative;
+}
+
+.introjs-helperLayer {
+  @include transition(all .3s ease-out);
+  @include box-shadow(rgba(0, 0, 0, 0.25) 0 2px 3px);
+  position: absolute;
+  z-index: 9999998;
+  background-color: #fff;
+  border-radius: 4px;
+
+  &:hover {
+    @include box-shadow(rgba(0, 0, 0, 0.25) 0 3px 5px);
+  }
+}
+
+.introjs-tooltipReferenceLayer {
+  @include transition(all .3s ease-out);
+  @include box-sizing(content-box);
+  position: absolute;
+  z-index: 10000000;
+  background-color: transparent;
+}
+
+.introjs-tooltiptext {
+  line-height: 16px;
+  font-size: 12px;
+  color: #333;
+}
+
+.introjs-helperLayer *,
+.introjs-helperLayer *:before,
+.introjs-helperLayer *:after {
+  @include box-sizing(content-box);
+}
+
+.introjs-helperNumberLayer {
+  @include transition(all .3s ease-out);
+  @include box-shadow(rgba(0, 0, 0, 0.25) 0 2px 3px);
+  @include box-sizing(content-box);
+  position: absolute;
+  z-index: 9999999999 !important;
+  font-family: Arial, verdana, tahoma;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  background: #3498db;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  padding: 2px;
+  line-height: 20px;
+  border: 4px solid white;
+  border-radius: 50%;
+
+  &.left {
+    top: 50%;
+    left: -14px;
+    margin-top: -16px;
+  }
+
+  &.right {
+    top: 50%;
+    right: -14px;
+    margin-top: -16px;
+  }
+
+  &.bottom {
+    bottom: -14px;
+    left: 50%;
+    margin-left: -16px;
+  }
+
+  &.bottom-left {
+    bottom: -14px;
+    left: -14px;
+  }
+
+  &.bottom-right {
+    bottom: -14px;
+    right: -14px;
+  }
+
+  &.top {
+    top: -14px;
+    left: 50%;
+    margin-left: -16px;
+  }
+
+  &.top-left {
+    top: -14px;
+    left: -14px;
+  }
+
+  &.top-right {
+    top: -14px;
+    right: -14px;
+  }
+}
+
+.introjs-arrow {
+  border: 5px solid white;
+  content:'';
+  position: absolute;
+
+  &.top {
+    top: -10px;
+    left: 50%;
+    margin-left: -5px;
+    border-color:transparent transparent white transparent;
+  }
+
+  &.top-right {
+    top: -10px;
+    right: 10px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:white;
+    border-left-color:transparent;
+  }
+
+  &.top-left {
+    top: -10px;
+    left: 10px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:white;
+    border-left-color:transparent;
+  }
+
+  &.right {
+    right: -10px;
+    top: 10px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    border-left-color:white;
+  }
+
+  &.right-bottom {
+    bottom:10px;
+    right: -10px;
+    border-top-color:transparent;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    border-left-color:white;
+  }
+
+  &.bottom {
+    bottom: -10px;
+    left: 50%;
+    margin-left: -5px;
+    border-top-color:white;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    border-left-color:transparent;
+  }
+
+  &.bottom-left {
+    left: 10px;
+    bottom: -10px;
+    border-top-color:white;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    border-left-color:transparent;
+  }
+
+  &.bottom-right {
+    right: 10px;
+    bottom: -10px;
+    border-top-color:white;
+    border-right-color:transparent;
+    border-bottom-color:transparent;
+    border-left-color:transparent;
+  }
+
+  &.left {
+    left: -10px;
+    top: 10px;
+    border-top-color:transparent;
+    border-right-color:white;
+    border-bottom-color:transparent;
+    border-left-color:transparent;
+  }
+
+  &.left-bottom {
+    left: -10px;
+    bottom:10px;
+    border-top-color:transparent;
+    border-right-color:white;
+    border-bottom-color:transparent;
+    border-left-color:transparent;
+  }
+}
+
+.introjs-tooltip {
+  @include transition(all .1s ease-out);
+  @include box-shadow(rgba(0, 0, 0, 0.25) 0 2px 3px);
+  @include border-radius(3px);
+  position: absolute;
+  padding: 10px;
+  background-color: white;
+  min-width: 200px;
+  max-width: 300px;
+
+  &:hover {
+    @include box-shadow(rgba(0, 0, 0, 0.25) 0 2px 5px);
+  }
+}
+
+.introjs-tooltipbuttons {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.introjs-button {
+  @include transition(all .08s ease-in);
+  position: relative;
+  overflow: visible;
+  display: inline-block;
+  line-height: normal;
+  padding: 6px 10px;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fafafa;
+  color: #666;
+  zoom: 1;
+  *display: inline;
+
+  &:hover {
+    color: #333;
+    text-decoration: none;
+    background: #f5f5f5;
+  }
+
+  &:focus,
+  &:active {
+    color: #333;
+    text-decoration: none;
+    background: #f0f0f0;
+    outline: none;
+  }
+}
+
+.introjs-skipbutton {
+  @include border-radius(4px);
+  float: left;
+}
+
+.introjs-prevbutton {
+  @include border-radius(4px 0 0 4px);
+  border-right: none;
+}
+
+.introjs-nextbutton {
+  @include border-radius(0 4px 4px 0);
+}
+
+.introjs-disabled,
+.introjs-disabled:hover,
+.introjs-disabled:focus {
+  cursor: default;
+  border-color: #e5e5e5;
+  background: #f9f9f9;
+  color: #bbb;
+}
+
+.introjs-bullets {
+  text-align: center;
+
+  ul {
+    clear: both;
+    margin: 10px 0 !important;
+    padding: 0;
+    display: inline-block;
+
+    li {
+      list-style: none;
+      float: left;
+      margin: 0 2px;
+
+      a {
+        @include transition(all .08s ease-in);
+        @include border-radius(50%);
+        display: block;
+        width: 6px;
+        height: 6px;
+        background: #ccc;
+        text-decoration: none;
+
+        &:hover {
+          background: #999;
+        }
+
+        &.active {
+          background: #3498db;
+        }
+      }
+    }
+  }
+}
+
+.introjs-progress {
+  overflow: hidden;
+  height: 10px;
+  margin: 10px 0 5px 0;
+  border-radius: 4px;
+  background-color: #ecf0f1
+}
+
+.introjs-progressbar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+  background-color: #08c;
+}
+
+.introjsFloatingElement {
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 50%;
+  top: 50%;
+}
